@@ -1,15 +1,26 @@
+.base {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
 
 .normal {
   font-family: Georgia, sans-serif;
   text-align: center;
+  flex-wrap: nowrap;
+  display: flex;
+  flex-direction: column;
+  background: darkslateblue;
+}
+.children {
+  flex-wrap: nowrap;
 }
 
 .title {
   font-size: 2.5rem;
   font-weight: normal;
   letter-spacing: -1px;
-  background: darkslateblue;
-  padding: .6em 0;
+  padding: 0.6em;
   color: white;
   margin: 0;
 }
