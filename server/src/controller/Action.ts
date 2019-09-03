@@ -5,9 +5,8 @@ import {Context} from "koa";
  */
 export async function getAllAction(context: Context) {
 
-
+    
     const posts = 'getAllAction';
-
     context.body = posts;
 }
 
@@ -15,9 +14,5 @@ export async function getAllAction(context: Context) {
  * 执行配置操作
  */
 export async function postRunAction(context: Context) {
-
-
-  const posts = 'postRunAction';
-
-  context.body = posts;
+  context.body = context.request.body;
 }

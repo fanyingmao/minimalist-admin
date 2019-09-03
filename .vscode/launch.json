@@ -9,6 +9,7 @@
       "request": "launch",
       "name": "Launch Program",
       "preLaunchTask": "npm: tsc - server",
+      "env": {"NODE_ENV":"dev"},
       "cwd": "${workspaceFolder}/server",
       "program": "${workspaceFolder}/server/dist/index.js"
     }

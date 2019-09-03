@@ -22,7 +22,7 @@ function getRoute(path: string, method: METHODS, action: Middleware<Parameterize
 /**
  * All application routes.
  */
-export const AppRoutes = [
+export const AppRoutes:IRoute[] = [
   getRoute("/getAllAction", METHODS.GET, getAllAction),
   getRoute("/postRunAction", METHODS.POST, postRunAction),
 ];
