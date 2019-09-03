@@ -5,8 +5,8 @@ import { getLogger } from "log4js";
 export function requestLog() {
   return async (cxt: Context, next: () => Promise<any>) => {
       let requestBody = cxt.method === 'GET'?cxt.request.query:cxt.request.body;
-      getLogger().info(`url:${cxt.originalUrl} method:${cxt.method} body:${JSON.stringify(requestBody)}`);
+      getLogger().info(`url:${cxt.originalUrl} -${cxt.method} body:${JSON.stringify(requestBody)}`);
       await next();
-      getLogger().info(`url:${cxt.originalUrl} method:${cxt.method} msg:${JSON.stringify(cxt.body)}`);
+      getLogger().info(`url:${cxt.originalUrl} -${cxt.method} msg:${JSON.stringify(cxt.body)}`);
   }
 }
