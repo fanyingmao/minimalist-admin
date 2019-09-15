@@ -2,3 +2,4 @@
 /**/*.js
 /**/*.js.map
 /server/logs
+server/yarn-error.log

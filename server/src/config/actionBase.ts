@@ -1,18 +1,14 @@
 export const ActionType = {
-  system:{
-    "Prefix":""
+  system: {
+    type: 0,
+    "Prefix": ""
   },
-  mysql:{
-    "Prefix":""
+  mysql: {
+    type: 1,
+    "Prefix": ""
   },
-  redis:{
-    "Prefix":""
+  redis: {
+    type: 2,
+    "Prefix": ""
   }
-}
-
-export const InputType = {
-  Date:'[date]',
-  number:'[number]',
-  string:'[string]',
-  enum:'[enum]',
 }
