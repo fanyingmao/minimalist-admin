@@ -1,5 +1,5 @@
   
-import { Alert, Checkbox, Icon, Button, AutoComplete } from 'antd';
+import { Alert, Checkbox, Icon, Button, AutoComplete, Modal, message } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import React, { Component } from 'react';
 
@@ -15,8 +15,8 @@ interface LoginProps {
   submitting: boolean;
 }
 interface LoginState {
-  type: string;
-  autoLogin: boolean;
+  visible: boolean;
+  dataSource:string[];
 }
 
 
@@ -24,33 +24,41 @@ class Admin extends Component<LoginProps, LoginState> {
   loginForm: FormComponentProps['form'] | undefined | null = undefined;
 
   state: LoginState = {
-    type: 'account',
-    autoLogin: true,
+    visible: false,
+    dataSource:['ffffff','fff2']
   };
 
-  changeAutoLogin = (e: CheckboxChangeEvent) => {
+
+
+  showModal = () => {
     this.setState({
-      autoLogin: e.target.checked,
+      visible: true,
     });
   };
 
-
-  onTabChange = (type: string) => {
-    this.setState({ type });
+  onSelect = (value:any) => {
+    message.info('onSelect:'+value);
   };
 
-
-  renderMessage = (content: string) => (
-    <Alert style={{ marginBottom: 24 }} message={content} type="error" showIcon />
-  );
-
+  onSearch = (searchText:string) => {
+    // this.setState({
+    //   dataSource: !searchText ? [] : [searchText, searchText.repeat(2), searchText.repeat(3)],
+    // });
+  };
+  
+  
   render() {
     const { submitting } = this.props;
-    const { type, autoLogin } = this.state;
+    const { visible,dataSource} = this.state;
     return (
       <div >
-          <Button type="primary">fdsafdasf</Button>
-          <AutoComplete />
+          <Button type="primary" onClick={this.showModal}>fdsafdasf</Button>
+          <AutoComplete 
+               dataSource={dataSource}
+               style={{ width: 200 }}
+               onSelect={this.onSelect}
+               onSearch={this.onSearch}
+               placeholder="input here"/>
       </div>
     );
   }
