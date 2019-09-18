@@ -8,32 +8,27 @@ import { Dispatch, AnyAction } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
 import Link from 'umi/link';
 import { connect } from 'dva';
+import { ConnectState } from '@/models/connect';
+import { StateType } from '@/models/action';
 
 
-interface LoginProps {
+interface ActionProps {
   dispatch: Dispatch<AnyAction>;
-  submitting: boolean;
+  userAction: StateType;
 }
-interface LoginState {
-  visible: boolean;
-  dataSource:string[];
+interface ActionState {
+  type: string;
 }
 
-
-class Admin extends Component<LoginProps, LoginState> {
+@connect(({ action }: ConnectState) => ({
+  userAction: action,
+}))
+class Admin extends Component<ActionProps, ActionState> {
   loginForm: FormComponentProps['form'] | undefined | null = undefined;
-
-  state: LoginState = {
-    visible: false,
-    dataSource:['ffffff','fff2']
-  };
-
 
 
   showModal = () => {
-    this.setState({
-      visible: true,
-    });
+
   };
 
   onSelect = (value:any) => {
@@ -48,13 +43,13 @@ class Admin extends Component<LoginProps, LoginState> {
   
   
   render() {
-    const { submitting } = this.props;
-    const { visible,dataSource} = this.state;
+    const { userAction } = this.props;
+    // const { dataSource} = this.state;
     return (
       <div >
           <Button type="primary" onClick={this.showModal}>fdsafdasf</Button>
           <AutoComplete 
-               dataSource={dataSource}
+              //  dataSource={dataSource}
                style={{ width: 200 }}
                onSelect={this.onSelect}
                onSearch={this.onSearch}
