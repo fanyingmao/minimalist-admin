@@ -9,7 +9,7 @@ import { ipWhitelist } from "./middleware/ipWhitelist";
 import { requestLog } from "./middleware/requestLog";
 import { LogManager } from "./utils/InitConfig";
 import { getLogger } from "log4js";
-
+import cors = require('@koa/cors');
 
 LogManager.initLog();
 // create koa app
@@ -19,6 +19,7 @@ const router = new Router();
 // register all application routes
 AppRoutes.forEach(route => router[route.method](route.path, route.action));
 
+app.use(cors);
 // run app
 app.use(bodyParser());
 // app.use(logger);

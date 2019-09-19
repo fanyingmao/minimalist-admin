@@ -1,16 +1,18 @@
 import { Effect } from 'dva';
 import { Reducer } from 'redux';
+import { DataSourceItemObject } from 'antd/lib/auto-complete';
+import { getAllAction } from '@/services/action';
 
 export interface StateType {
-  actionList?: String[];
+  actionList?: DataSourceItemObject[];
 }
 
 export interface ActionModelType {
   namespace: string;
   state: StateType;
   effects: {
-    getAllAction: Effect;
-    postRunAction: Effect;
+    allAction: Effect;
+    runAction: Effect;
   };
   reducers: {
     changeAction: Reducer<StateType>;
@@ -19,16 +21,19 @@ export interface ActionModelType {
 
 const Model: ActionModelType = {
   namespace: 'action',
-
   state: {
     actionList: []
   },
 
   effects: {
-    *getAllAction(_, { call, put }) {
-
+    *allAction(_, { call, put }) {//3、执行请求接口异步操作
+      const response = yield call(getAllAction);
+      yield put({
+        type: 'changeAction',
+        payload: response,
+      });
     },
-    *postRunAction({ payload }, { call, put }) {
+    *runAction({ payload }, { call, put }) {
 
     }
   },
