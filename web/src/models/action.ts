@@ -27,10 +27,10 @@ const Model: ActionModelType = {
 
   effects: {
     *allAction(_, { call, put }) {//3、执行请求接口异步操作
-      const response = yield call(getAllAction);
+      const {data} = yield call(getAllAction);
       yield put({
         type: 'changeAction',
-        payload: response,
+        payload: data,
       });
     },
     *runAction({ payload }, { call, put }) {
@@ -42,7 +42,7 @@ const Model: ActionModelType = {
     changeAction(state, { payload }) {
       return {
         ...state,
-        actionList: payload.actionList,
+        actionList: payload,
       };
     }
   }

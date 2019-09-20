@@ -8,7 +8,7 @@ import { asyncExec } from "../utils/CommonUtils";
  * 获取所有操作配置
  */
 export async function getAllAction(context: Context) {
-  context.body = {code:200,data:actionList};
+  context.body = {code:0,data:actionList};
 }
 
 /**
@@ -22,5 +22,5 @@ export async function postRunAction(context: Context) {
   const cmd: string = action.getCmdStr(paramArr);
   getLogger().info(`postRunAction cmd: ${cmd}`);
   let data = await asyncExec(cmd);
-  context.body = {code:200,data};
+  context.body = {code:0,data};
 }

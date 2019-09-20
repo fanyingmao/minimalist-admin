@@ -2,9 +2,10 @@
 # yarn lockfile v1
 
 
-"@koa/cors@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/@koa/cors/-/cors-3.0.0.tgz#df021b4df2dadf1e2b04d7c8ddf93ba2d42519cb"
+"@koa/cors@2":
+  version "2.2.3"
+  resolved "https://registry.npm.taobao.org/@koa/cors/download/@koa/cors-2.2.3.tgz#c32a9907acbee1e72fedfb0b9ac840d2e6f9be57"
+  integrity sha1-wyqZB6y+4ecv7fsLmshA0ub5vlc=
   dependencies:
     vary "^1.1.2"
 

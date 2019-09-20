@@ -4,7 +4,7 @@ import { createContext } from "vm";
 export function ipWhitelist() {
   return async (cxt: Context, next: () => Promise<any>) => {
     let ip = cxt.request.ip.replace(/::ffff:/, '');
-    if (ipList.includes(ip)) {
+    if (ipList.includes(ip) || ip === "::1") {
       await next();
     }
     else {
