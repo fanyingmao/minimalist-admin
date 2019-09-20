@@ -54,12 +54,12 @@ const request = extend({
   credentials: 'include', // 默认请求是否带上cookie
 });
 
-request.use(async (ctx, next) => {
+request.use(async (ctx, next) => {//请求中间件
   const { req } = ctx;
   const { url } = req;
   await next();
   const { res } = ctx;
-  const { code = 1 } = res; // 假设返回结果为 : { success: false, errorCode: 'B001' }
+  const { code = 1 } = res; 
   if (code !== 0) {
     // 对异常情况做对应处理
     notification.error({
