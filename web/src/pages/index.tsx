@@ -1,4 +1,4 @@
-import { Button, AutoComplete, message, List } from 'antd';
+import { Button, AutoComplete, message, List, Input, Form } from 'antd';
 import React, { Component } from 'react';
 
 import { Dispatch, AnyAction } from 'redux';
@@ -7,7 +7,8 @@ import { connect } from 'dva';
 import { ConnectState } from '@/models/connect';
 import { StateType } from '@/models/action';
 import { DataSourceItemObject } from 'antd/lib/auto-complete';
-
+import { SelectValue } from 'antd/lib/select';
+import styles from './index.css';
 
 interface ActionProps {
   dispatch: Dispatch<AnyAction>;
@@ -15,14 +16,23 @@ interface ActionProps {
 }
 interface ActionState {
   searchText: string,
+  selectIdx: number,
+  module: InputItem[],
 }
-const data = [
-  'Racing car sprays burning fuel into crowd.',
-  'Japanese princess to wed commoner.',
-  'Australian walks 100km after outback crash.',
-  'Man charged over missing wedding girl.',
-  'Los Angeles battles huge wildfires.',
-];
+
+class InputItem {
+  public lableName: string = '';
+  public value: string = '';
+  constructor(paramStr: string) {
+    const paramArr: string[] = paramStr.replace('[', '').replace(']', '').split(',');
+    this.lableName = paramArr[0];
+  }
+  onChange(event: any) {
+    if (event && event.target && event.target.value) {
+      this.value = event.target.value;
+    }
+  }
+}
 
 @connect(({ action }: ConnectState) => ({
   userAction: action,
@@ -32,12 +42,27 @@ class Admin extends Component<ActionProps, ActionState> {
 
   state: ActionState = {
     searchText: "",
+    selectIdx: 0,
+    module: [],
   };
   handleGetAllAction = () => { // 1、点击事件
-
+    const { dispatch } = this.props;
+    const { selectIdx } = this.state;
+    const { module } = this.state;
+    const params = module.map(item=>item.value).join(',');
+    dispatch({
+      type: 'action/runAction',// action 对应 *getAllAction
+      payload: {
+        index: selectIdx,
+        params,
+      }
+    });
   };
 
-  onSelect = (value: any) => {
+  onSelect = (value: SelectValue) => {
+    this.setState({
+      selectIdx: Number.parseInt(value.toString())
+    });
     message.info('onSelect:' + value);
   };
 
@@ -57,26 +82,47 @@ class Admin extends Component<ActionProps, ActionState> {
 
   render() {
     const { userAction } = this.props;
-    const { searchText } = this.state;
-    const dataSource = userAction.actionList.map((item, index): DataSourceItemObject => ({ value: index.toString(), text: item.title }))
-      .filter(itme => itme.text.includes(searchText));
+    const { searchText, selectIdx } = this.state;
+    let { module } = this.state;
+    let dataSource: DataSourceItemObject[] = [];
+    if (userAction.actionList && userAction.actionList.length > 0) {
+      dataSource = userAction.actionList.map((item, index): DataSourceItemObject => ({ value: index.toString(), text: item.title }))
+        .filter(itme => itme.text.includes(searchText));
+      let machArr = userAction.actionList[selectIdx].module.match(/\[.{0,10}\]/g);
+      if (machArr) {
+        module = machArr.map(item => new InputItem(item));
+      }
+    }
     return (
-      <div >
-        <AutoComplete
-          dataSource={dataSource}
-          style={{ width: 200 }}
-          onSelect={this.onSelect}
-          onSearch={this.onSearch}
-          placeholder="input here" />
-        <Button type="primary" onClick={this.handleGetAllAction}>执行</Button>
-        <List
-          size="small"
-          header={<div>Header</div>}
-          footer={<div>Footer</div>}
-          bordered
-          dataSource={data}
-          renderItem={item => <List.Item>{item}</List.Item>}
-        />
+      <div className={styles.diva} >
+        <div className={styles.divb}>
+          <List
+            size="small"
+            className={styles.list}
+            header={<div >
+              <AutoComplete
+                dataSource={dataSource}
+                style={{ width: 300 }}
+                onSelect={this.onSelect}
+                onSearch={this.onSearch}
+                placeholder="input here" />
+              <Button type="primary" onClick={this.handleGetAllAction} className={styles.btn}>执行</Button>
+            </div>}
+            footer={<div>
+              <p>执行结果:</p>
+              {userAction.result}
+            </div>}
+            bordered
+            dataSource={module}
+            renderItem={item => <List.Item >
+              <Form layout="inline">
+                <Form.Item label={item.lableName} hasFeedback validateStatus="">
+                  <Input placeholder="Basic usage" onChange={event => item.onChange(event)} defaultValue={item.value} />
+                </Form.Item>
+              </Form>
+            </List.Item>}
+          />
+        </div>
       </div>
     );
   }

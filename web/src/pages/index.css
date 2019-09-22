@@ -1,23 +1,27 @@
-
-.normal {
-  font-family: Georgia, sans-serif;
-  margin-top: 4em;
-  text-align: center;
+.diva{
+  width:100%;
+  flex-direction: row;
+  display: flex;
+  justify-content:center;
+}
+.divb{
+  width: 50%;
+}
+.btn {
+  margin-left: 1em
 }
 
-.welcome {
-  height: 328px;
-  background: url(../assets/yay.jpg) no-repeat center 0;
-  background-size: 388px 328px;
+.input {
+  width:100%;
 }
 
 .list {
-  font-size: 1.2em;
-  margin-top: 1.8em;
-  list-style: none;
-  line-height: 1.5em;
+  margin-top: 20%
 }
 
-.list code {
-  background: #f7f7f7;
+.itemBox{
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 1.8em;
+  flex-direction: row;
 }

@@ -1,6 +1,6 @@
 import { Effect } from 'dva';
 import { Reducer } from 'redux';
-import { getAllAction } from '@/services/action';
+import { getAllAction, postRunAction } from '@/services/action';
 
 export interface IAction{
    type: number;
@@ -8,7 +8,8 @@ export interface IAction{
    module: string;
 }
 export interface StateType {
-  actionList: IAction[];
+  actionList?: IAction[];
+  result?: string;
 }
 
 export interface ActionModelType {
@@ -20,6 +21,7 @@ export interface ActionModelType {
   };
   reducers: {
     changeAction: Reducer<StateType>;
+    changeResult: Reducer<StateType>;
   };
 }
 
@@ -38,7 +40,11 @@ const Model: ActionModelType = {
       });
     },
     *runAction({ payload }, { call, put }) {
-
+      const response = yield call(postRunAction,payload);
+      yield put({
+        type: 'changeResult',
+        payload: response,
+      });
     }
   },
 
@@ -47,6 +53,12 @@ const Model: ActionModelType = {
       return {
         ...state,
         actionList: payload.data,
+      };
+    },
+    changeResult(state, { payload }) {
+      return {
+        ...state,
+        result: payload.data,
       };
     }
   }

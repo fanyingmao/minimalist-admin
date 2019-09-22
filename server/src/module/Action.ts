@@ -1,3 +1,5 @@
+import { ActionTypeMap } from "../config/actionBase";
+
 export class Action {
   private type: number;
   private title: string;
@@ -12,8 +14,9 @@ export class Action {
   getCmdStr(paramArr:string[]):string{
     let cmd = this.module;
     paramArr.forEach(param=>{
-      cmd = cmd.replace(/\[.{0,10}\]/,` '${param}' `);
+      cmd = cmd.replace(/\[.{0,10}\]/,` '${param}' `);//TODO: 正则需要优化
     });
+    cmd = `${ActionTypeMap[this.type].Prefix} '${cmd}' `;
     return cmd;
   }
 }
