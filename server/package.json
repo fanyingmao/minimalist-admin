@@ -5,10 +5,13 @@
   "license": "MIT",
   "dependencies": {
     "@koa/cors": "2",
+    "@types/koa-static": "^4.0.1",
     "koa": "^2.8.1",
     "koa-bodyparser": "^4.2.1",
+    "koa-compose": "^4.1.0",
     "koa-logger": "^3.2.1",
     "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
     "log4js": "^5.1.0",
     "reflect-metadata": "^0.1.13",
     "typescript": "^3.6.3"
