@@ -13,6 +13,7 @@ import styles from './index.css';
 interface ActionProps {
   dispatch: Dispatch<AnyAction>;
   userAction: StateType;
+  submitting: boolean;
 }
 interface ActionState {
   searchText: string,
@@ -33,8 +34,9 @@ class InputItem {
   }
 }
 
-@connect(({ action }: ConnectState) => ({
+@connect(({ action, loading }: ConnectState) => ({
   userAction: action,
+  submitting: loading.effects['action/allAction'],
 }))
 class Admin extends Component<ActionProps, ActionState> {
   loginForm: FormComponentProps['form'] | undefined | null = undefined;
@@ -47,7 +49,7 @@ class Admin extends Component<ActionProps, ActionState> {
   handleRunAction = () => { // 1、点击事件
     const { dispatch } = this.props;
     const { selectIdx } = this.state;
-    const params =  this.module.map(item=>item.value).join(',');
+    const params = this.module.map(item => item.value).join(',');
     message.info('onSelect:' + JSON.stringify(this.module));
     dispatch({
       type: 'action/runAction',// action 对应 *getAllAction
@@ -80,19 +82,19 @@ class Admin extends Component<ActionProps, ActionState> {
   }
 
   render() {
-    const { userAction } = this.props;
+    const { userAction, submitting } = this.props;
     const { searchText, selectIdx } = this.state;
     let dataSource: DataSourceItemObject[] = [];
     if (userAction.actionList && userAction.actionList.length > 0) {
       dataSource = userAction.actionList.map((item, index): DataSourceItemObject => ({ value: index.toString(), text: item.title }))
         .filter(itme => itme.text.includes(searchText));
-      if(this.upSelectIdx !== selectIdx){
+      if (this.upSelectIdx !== selectIdx) {
         this.upSelectIdx = selectIdx;
         let machArr = userAction.actionList[selectIdx].module.match(/\[.{0,10}\]/g);
         if (machArr) {
           this.module = machArr.map(item => new InputItem(item));
         }
-        else{
+        else {
           this.module = [];
         }
       }
@@ -110,14 +112,14 @@ class Admin extends Component<ActionProps, ActionState> {
                 onSelect={this.onSelect}
                 onSearch={this.onSearch}
                 placeholder="input here" />
-              <Button type="primary" onClick={this.handleRunAction} className={styles.btn}>执行</Button>
+              <Button type="primary" onClick={this.handleRunAction} className={styles.btn} loading={submitting}>执行</Button>
             </div>}
             footer={<div>
               <p>执行结果:</p>
               {userAction.result}
             </div>}
             bordered
-            dataSource={ this.module}
+            dataSource={this.module}
             renderItem={item => <List.Item >
               <Form layout="inline">
                 <Form.Item label={item.lableName} hasFeedback validateStatus="">

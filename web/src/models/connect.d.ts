@@ -2,7 +2,16 @@ import { ActionModelType } from "./action";
 import { Dispatch } from "react";
 import { AnyAction } from "redux";
 
+export interface Loading {
+  global: boolean;
+  effects: { [key: string]: boolean | undefined };
+  models: {
+    action?: boolean;
+  };
+}
+
 export interface ConnectState {
+  loading: Loading;
   action: ActionModelType;
 }
 
