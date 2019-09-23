@@ -1,4 +1,4 @@
-import { Button, AutoComplete, message, List, Input, Form } from 'antd';
+import { Button, AutoComplete, List, Input, Form } from 'antd';
 import React, { Component } from 'react';
 
 import { Dispatch, AnyAction } from 'redux';
@@ -36,7 +36,7 @@ class InputItem {
 
 @connect(({ action, loading }: ConnectState) => ({
   userAction: action,
-  submitting: loading.effects['action/allAction'],
+  submitting: loading.effects['action/runAction'],
 }))
 class Admin extends Component<ActionProps, ActionState> {
   loginForm: FormComponentProps['form'] | undefined | null = undefined;
@@ -49,8 +49,8 @@ class Admin extends Component<ActionProps, ActionState> {
   handleRunAction = () => { // 1、点击事件
     const { dispatch } = this.props;
     const { selectIdx } = this.state;
-    const params = this.module.map(item => item.value).join(',');
-    message.info('onSelect:' + JSON.stringify(this.module));
+    const params =  this.module.map(item=>item.value).join(',');
+    // message.info('onSelect:' + JSON.stringify(this.module));
     dispatch({
       type: 'action/runAction',// action 对应 *getAllAction
       payload: {
