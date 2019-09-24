@@ -37,7 +37,7 @@ app.use(cors({
 app.use(bodyParser());
 // app.use(logger);
 app.use(requestLog());
-app.use(ipWhitelist());
+// app.use(ipWhitelist());
 app.use(router.routes());
 app.use(router.allowedMethods());
 

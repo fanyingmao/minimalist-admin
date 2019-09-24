@@ -16,7 +16,7 @@ export const ActionType = {
   },
   redis: {
     type: 2,
-    Prefix: `redis-cli <subCmd>`
+    Prefix: `${BasePrefix}  redis-cli <subCmd>`
   }
 }
  let temMap:any = {};
