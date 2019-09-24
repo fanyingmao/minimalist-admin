@@ -2,5 +2,6 @@
 /**/*.js
 /**/*.js.map
 /**/dist
-/server/logs
+server/logs
 server/yarn-error.log
+server/src/config/actionBase.ts
