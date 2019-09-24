@@ -16,7 +16,7 @@ export class Action {
     paramArr.forEach(param=>{
       cmd = cmd.replace(/\[.{0,10}\]/,` '${param}' `);//TODO: 正则需要优化
     });
-    cmd = `${ActionTypeMap[this.type].Prefix} ${cmd} `;
+    cmd = ActionTypeMap[this.type].Prefix.replace('<subCmd>',cmd);
     return cmd;
   }
 }

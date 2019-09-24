@@ -48,7 +48,7 @@ class Admin extends Component<ActionProps, ActionState> {
     const { dispatch } = this.props;
     const { selectIdx } = this.state;
     const params =  this.module.map(item=>item.value).join(',');
-    message.info('onSelect:' + JSON.stringify(this.module));
+    // message.info('onSelect:' + JSON.stringify(this.module));
     dispatch({
       type: 'action/runAction',// action 对应 *getAllAction
       payload: {

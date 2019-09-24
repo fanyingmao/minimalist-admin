@@ -1,15 +1,15 @@
 export const ActionType = {
   system: {
     type: 0,
-    Prefix: ""
+    Prefix: "ssh root@by.fanym.top '<subCmd>'"
   },
   mysql: {
     type: 1,
-    Prefix: ""
+    Prefix: "<subCmd>"
   },
   redis: {
     type: 2,
-    Prefix: ""
+    Prefix: "<subCmd>"
   }
 }
  let temMap:any = {};
