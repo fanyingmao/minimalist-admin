@@ -90,7 +90,7 @@ class Admin extends Component<ActionProps, ActionState> {
         .filter(itme => itme.text.includes(searchText));
       if (this.upSelectIdx !== selectIdx) {
         this.upSelectIdx = selectIdx;
-        let machArr = userAction.actionList[selectIdx].module.match(/\[.{0,10}\]/g);
+        let machArr = userAction.actionList[selectIdx].module.match(/\[(.*?)\]/g);
         if (machArr) {
           this.module = machArr.map(item => new InputItem(item));
         }

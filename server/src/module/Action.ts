@@ -13,9 +13,15 @@ export class Action {
 
   getCmdStr(paramArr:string[]):string{
     let cmd = this.module;
-    paramArr.forEach(param=>{
-      cmd = cmd.replace(/\[.{0,10}\]/,`${param}`);//TODO: 正则需要优化
-    });
+    let regArr:RegExp[] = cmd.match(/\[(.*?)\]/g).map(item=>item?new RegExp(item):/.*/);
+    for(let i = 0;i<regArr.length;i++){
+      let param = paramArr[i];
+      let reg = regArr[i];
+      if(!reg.test(param)){
+        // throw {code }
+      }
+      cmd = cmd.replace(/\[(.*?)\]/,`${param}`);
+    }
     cmd = ActionTypeMap[this.type].Prefix.replace('<subCmd>',cmd);
     return cmd;
   }
