@@ -1,4 +1,4 @@
-import { ActionTypeMap } from "../config/actionBase";
+import { ActionTypeMap } from "../../config/actionBase";
 
 export class Action {
   private type: number;

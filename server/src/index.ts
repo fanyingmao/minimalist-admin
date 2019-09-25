@@ -10,6 +10,7 @@ import { requestLog } from "./middleware/requestLog";
 import { LogManager } from "./utils/InitConfig";
 import { getLogger } from "log4js";
 import cors = require('@koa/cors');
+import { Api } from "./share/Api";
 
 LogManager.initLog();
 // create koa app
@@ -24,7 +25,7 @@ app.use(cors({
         if (ctx.url === '/test') {
             return "*"; // 允许来自所有域名请求
         }
-        return 'http://buyu.fanym.top:8000';
+        return Api.BaseUrl;
     },
     exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
     maxAge: 5,
@@ -41,6 +42,6 @@ app.use(requestLog());
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.listen(3000);
+app.listen(Api.ServerPort);
 
-getLogger().info("Koa application is up and running on port 3000");
+getLogger().info(`Koa application is up and running on port ${Api.ServerPort}}`);

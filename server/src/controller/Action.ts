@@ -1,6 +1,6 @@
 import { Context } from "koa";
 import { actionList } from "../config/actionList";
-import { Action } from "../module/Action";
+import { Action } from "../share/module/Action";
 import { getLogger } from "log4js";
 import { asyncExec } from "../utils/CommonUtils";
 

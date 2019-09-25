@@ -1,11 +1,12 @@
 import { Effect } from 'dva';
 import { Reducer } from 'redux';
 import { getAllAction, postRunAction } from '@/services/action';
+import { IResPostRunAction, IResGetAllAction } from '@/share/Api';
 
-export interface IAction{
-   type: number;
-   title: string;
-   module: string;
+export interface IAction {
+  type: number;
+  title: string;
+  module: string;
 }
 export interface StateType {
   actionList?: IAction[];
@@ -33,14 +34,14 @@ const Model: ActionModelType = {
 
   effects: {
     *allAction(_, { call, put }) {//3、执行请求接口异步操作
-      const response = yield call(getAllAction);
+      const response: IResGetAllAction = yield call(getAllAction);
       yield put({
         type: 'changeAction',
         payload: response,
       });
     },
     *runAction({ payload }, { call, put }) {
-      const response = yield call(postRunAction,payload);
+      const response: IResPostRunAction = yield call(postRunAction, payload);
       yield put({
         type: 'changeResult',
         payload: response,

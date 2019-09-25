@@ -9,6 +9,7 @@ import { StateType } from '@/models/action';
 import { DataSourceItemObject } from 'antd/lib/auto-complete';
 import { SelectValue } from 'antd/lib/select';
 import styles from './index.css';
+import { IRsqPostRunAction } from '@/share/Api';
 
 interface ActionProps {
   dispatch: Dispatch<AnyAction>;
@@ -49,14 +50,14 @@ class Admin extends Component<ActionProps, ActionState> {
   handleRunAction = () => { // 1、点击事件
     const { dispatch } = this.props;
     const { selectIdx } = this.state;
-    const params =  this.module.map(item=>item.value).join(',');
+    let params: IRsqPostRunAction = {
+      index: selectIdx.toString(),
+      params: this.module.map(item => item.value).join(','),
+    };
     // message.info('onSelect:' + JSON.stringify(this.module));
     dispatch({
       type: 'action/runAction',// action 对应 *getAllAction
-      payload: {
-        index: selectIdx,
-        params,
-      }
+      payload: params,
     });
   };
 

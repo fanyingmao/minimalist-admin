@@ -1,6 +1,4 @@
 import { Context } from "koa";
-import ipList = require("../config/ipWhitelist.json");
-import { createContext } from "vm";
 import { getLogger } from "log4js";
 export function requestLog() {
   return async (cxt: Context, next: () => Promise<any>) => {
