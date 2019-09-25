@@ -1,6 +1,6 @@
 import { Context } from "koa";
 import ipList = require("../config/ipWhitelist.json");
-import { createContext } from "vm";
+import { ResCode } from "../share/Api.js";
 export function ipWhitelist() {
   return async (cxt: Context, next: () => Promise<any>) => {
     let ip = cxt.request.ip.replace(/::ffff:/, '');
@@ -8,7 +8,7 @@ export function ipWhitelist() {
       await next();
     }
     else {
-      cxt.body = { code: 1, msg: "ip不在白名单中" };
+      cxt.body = { code: ResCode.Fail, msg: "ip不在白名单中" };
     }
   }
 }
