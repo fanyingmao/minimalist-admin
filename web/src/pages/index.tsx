@@ -10,6 +10,7 @@ import { DataSourceItemObject } from 'antd/lib/auto-complete';
 import { SelectValue } from 'antd/lib/select';
 import styles from './index.css';
 import { IRsqPostRunAction } from '@/share/Api';
+import { ParmaReg } from '@/share/Constant';
 
 interface ActionProps {
   dispatch: Dispatch<AnyAction>;
@@ -25,7 +26,7 @@ class InputItem {
   public lableName: string = '';
   public value: string = '';
   constructor(paramStr: string) {
-    const paramArr: string[] = paramStr.replace('[', '').replace(']', '').split(',');
+    const paramArr: string[] = paramStr.replace('<', '').replace('>', '').split(',');
     this.lableName = paramArr[0];
   }
   onChange(event: any) {
@@ -91,7 +92,7 @@ class Admin extends Component<ActionProps, ActionState> {
         .filter(itme => itme.text.includes(searchText));
       if (this.upSelectIdx !== selectIdx) {
         this.upSelectIdx = selectIdx;
-        let machArr = userAction.actionList[selectIdx].module.match(/\[(.*?)\]/g);
+        let machArr = userAction.actionList[selectIdx].module.match(ParmaReg);
         if (machArr) {
           this.module = machArr.map(item => new InputItem(item));
         }

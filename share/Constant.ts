@@ -1,0 +1,1 @@
+export const ParmaReg = /\<(.*?)\>/g;//初步提取参数配置

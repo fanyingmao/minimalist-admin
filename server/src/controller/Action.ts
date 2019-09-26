@@ -1,9 +1,9 @@
 import { Context } from "koa";
 import { actionList } from "../config/actionList";
-import { Action } from "../share/module/Action";
 import { getLogger } from "log4js";
 import { asyncExec } from "../utils/CommonUtils";
 import { IResPostRunAction, IRsqPostRunAction, ResCode, IResGetAllAction } from "../share/Api";
+import { Action } from "../module/Action";
 
 /**
  * 获取所有操作配置
