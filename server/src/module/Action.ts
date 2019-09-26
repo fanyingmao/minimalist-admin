@@ -1,8 +1,8 @@
 import { ParmaReg } from "../share/Constant";
 import { ActionTypeMap } from "../config/actionBase";
-import { IAction } from "../share/Api";
+import { IAction, ResCode } from "../share/Api";
 
-export class Action implements IAction{
+export class Action implements IAction {
   public type: number;
   public title: string;
   public module: string;
@@ -13,22 +13,25 @@ export class Action implements IAction{
     this.module = module
   }
 
-  getCmdStr(paramArr:string[]):string{
+  getCmdStr(paramArr: string[]): string {
     let cmd = this.module;
     const cmdArr = cmd.match(ParmaReg);
-    if(cmdArr){
-      let regArr:RegExp[] = cmdArr.map(item=>item?new RegExp(item):/.*/);
-      for(let i = 0;i<regArr.length;i++){
+    if (cmdArr) {
+      let regArr: RegExp[] = cmdArr.map(item => {
+        const reg = item.replace('<', '').replace('>', '').split(',')[1];
+        return reg ? new RegExp(reg) : /.*/
+      });
+      for (let i = 0; i < regArr.length; i++) {
         let param = paramArr[i];
         let reg = regArr[i];
-        if(!reg.test(param)){
-          // throw {code }
+        if (!reg.test(param)) {
+          throw { code: ResCode.Fail, msg: '参数不合法' }
         }
-        cmd = cmd.replace(/\[(.*?)\]/,`${param}`);
+        cmd = cmd.replace(ParmaReg, `${param}`);
       }
     }
 
-    cmd = ActionTypeMap[this.type].Prefix.replace('<subCmd>',cmd);
+    cmd = ActionTypeMap[this.type].Prefix.replace('<subCmd>', cmd);
     return cmd;
   }
 }

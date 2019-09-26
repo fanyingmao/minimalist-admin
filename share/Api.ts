@@ -1,7 +1,9 @@
 export class Api {
   public static readonly ServerPort: number = 3000;
   public static readonly WebPort: number = 8000;//开发阶段web端口与server端口不一致
-  public static readonly BaseUrl: string = `http://localhost:${Api.WebPort}`;
+  public static getBaseUrl(isServer: boolean) {
+    return `http://localhost:${isServer ? Api.WebPort : Api.ServerPort}`;
+  }
 }
 
 export enum ResCode {

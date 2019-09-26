@@ -25,7 +25,7 @@ app.use(cors({
         if (ctx.url === '/test') {
             return "*"; // 允许来自所有域名请求
         }
-        return Api.BaseUrl;
+        return Api.getBaseUrl(true);
     },
     exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
     maxAge: 5,

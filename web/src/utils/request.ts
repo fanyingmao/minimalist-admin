@@ -4,8 +4,9 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+import { Api } from '@/share/Api';
 
-const codeMessage:any = {
+const codeMessage: any = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
   202: '一个请求已经进入后台排队（异步任务）。',
@@ -49,7 +50,7 @@ const errorHandler = (error: { response: Response }): Response => {
  * 配置request请求时的默认参数
  */
 const request = extend({
-  prefix: "http://buyu.fanym.top:3000",//服务器ip端口
+  prefix: Api.getBaseUrl(false),//服务器ip端口
   errorHandler, // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
 });
@@ -59,7 +60,7 @@ request.use(async (ctx, next) => {//请求中间件
   const { url } = req;
   await next();
   const { res } = ctx;
-  const { code = 1 } = res; 
+  const { code = 1 } = res;
   if (code !== 0) {
     // 对异常情况做对应处理
     notification.error({
