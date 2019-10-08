@@ -1,4 +1,4 @@
-import { ParmaReg } from "../share/Constant";
+import { ParmaReg, DefaultReg } from "../share/Constant";
 import { ActionTypeMap } from "../config/actionBase";
 import { IAction, ResCode } from "../share/Api";
 
@@ -19,7 +19,7 @@ export class Action implements IAction {
     if (cmdArr) {
       let regArr: RegExp[] = cmdArr.map(item => {
         const reg = item.replace('<', '').replace('>', '').split(',')[1];
-        return reg ? new RegExp(reg) : /^[0-9A-Za-z_]+$/ // 未配置默认参数只能是字母数字下划线组成 防止注入漏洞
+        return reg ? new RegExp(reg) : DefaultReg// 未配置默认参数只能是字母数字下划线组成 防止注入漏洞
       });
       for (let i = 0; i < regArr.length; i++) {
         let param = paramArr[i];

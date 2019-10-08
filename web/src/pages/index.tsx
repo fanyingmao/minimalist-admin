@@ -10,7 +10,7 @@ import { DataSourceItemObject } from 'antd/lib/auto-complete';
 import { SelectValue } from 'antd/lib/select';
 import styles from './index.css';
 import { IRsqPostRunAction } from '@/share/Api';
-import { ParmaReg } from '@/share/Constant';
+import { ParmaReg, DefaultReg } from '@/share/Constant';
 
 interface ActionProps {
   dispatch: Dispatch<AnyAction>;
@@ -25,15 +25,27 @@ interface ActionState {
 class InputItem {
   public lableName: string = '';
   public value: string = '';
-  public isError:boolean = true;
+  public isError: boolean = false;
+  public regMatch: RegExp = new RegExp('');
+
   constructor(paramStr: string) {
     const paramArr: string[] = paramStr.replace('<', '').replace('>', '').split(',');
     this.lableName = paramArr[0];
+    if(paramArr[1]){
+      this.regMatch = new RegExp(paramArr[1]);
+    }
+    else{
+      this.regMatch = DefaultReg;
+    }
   }
+
   onChange(event: any) {
     if (event && event.target && event.target.value) {
       this.value = event.target.value;
     }
+  }
+  cheakReg(){
+    this.isError = !(this.regMatch.test(this.value));
   }
 }
 
@@ -56,11 +68,18 @@ class Admin extends Component<ActionProps, ActionState> {
       index: selectIdx.toString(),
       params: this.module.map(item => item.value).join(','),
     };
+    this.module.forEach(itme=>itme.cheakReg());
+    if(this.module.some(item=>item.isError)){
+      this.setState({
+      });
+    }
+    else{
     // message.info('onSelect:' + JSON.stringify(this.module));
     dispatch({
       type: 'action/runAction',// action 对应 *getAllAction
       payload: params,
     });
+    }
   };
 
   onSelect = (value: SelectValue) => {
@@ -119,13 +138,15 @@ class Admin extends Component<ActionProps, ActionState> {
             </div>}
             footer={<div>
               <p>执行结果:</p>
+              <pre>
               {userAction.result}
+              </pre>
             </div>}
             bordered
             dataSource={this.module}
             renderItem={item => <List.Item >
-              <Form layout="inline">
-                <Form.Item label={item.lableName} hasFeedback validateStatus="">
+              <Form layout="inline" className={styles.itemBox}>
+                <Form.Item label={item.lableName} hasFeedback validateStatus={item.isError ? 'error' : ''}>
                   <Input placeholder="Basic usage" onChange={event => item.onChange(event)} defaultValue={item.value} />
                 </Form.Item>
               </Form>

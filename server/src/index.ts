@@ -44,4 +44,4 @@ app.use(router.allowedMethods());
 
 app.listen(Api.ServerPort);
 
-getLogger().info(`Koa application is up and running on port ${Api.ServerPort}}`);
+getLogger().info(`Koa application is up and running on port ${Api.ServerPort}`);
