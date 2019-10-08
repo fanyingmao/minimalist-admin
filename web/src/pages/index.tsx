@@ -25,6 +25,7 @@ interface ActionState {
 class InputItem {
   public lableName: string = '';
   public value: string = '';
+  public isError:boolean = true;
   constructor(paramStr: string) {
     const paramArr: string[] = paramStr.replace('<', '').replace('>', '').split(',');
     this.lableName = paramArr[0];
