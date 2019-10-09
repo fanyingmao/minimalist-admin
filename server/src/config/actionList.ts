@@ -1,9 +1,9 @@
 import { ActionType} from "./actionBase";
 import { Action } from "../module/Action";
 
-let dateReg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/.source;//日期正则
-let numReg = /^-?[1-9]\d*$/.source;//匹配整数
-let znumReg = /^[1-9]\d*$/.source;//匹配正整数
+const dateReg = /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/.source;//日期正则
+const numReg = /^-?[1-9]\d*$/.source;//匹配整数
+const znumReg = /^[1-9]\d*$/.source;//匹配正整数
 
 export const actionList:Action[]=[
   new Action(ActionType.system.type,'查看系统时间',`date  '+%Y-%m-%d %H:%M:%S'`),

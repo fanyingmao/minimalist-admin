@@ -9,7 +9,7 @@
       "experimentalDecorators": true,
       "sourceMap": true,
       "outDir": "./dist", //重定向输出目录
-      "resolveJsonModule": true,
+      "resolveJsonModule": true
   },
   "exclude": [
       "node_modules"
