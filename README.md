@@ -1,7 +1,7 @@
 # minimalist-admin
 ## 基本介绍
 基于 react + koa + typescript 开发的一个通过命令行实现后台管理的全栈小项目。实现通过命令模版的配置就可以进行一些简单功能的开发。主要应用情景为一些测试功能的开发，客户端与测试人员经常为了快速测试一些情况需要直接改数据库或系统时间，为了减轻后端这种重复工作量，开发这个工具可以通过命令模版配置而无需写其他代码就可以提供给他们测试用。
-## 快速开始(windows 需要拷贝或快捷方式share到server/src 与web/src 下)
+## 快速开始(windows 需要拷贝或快捷方式server/src/share到 web/src 下)
 
 ### 启动server服务器
 进入server目录
@@ -31,18 +31,19 @@ yarn start
 │   ├── node_modules
 │   ├── package.json
 │   ├── src
+│   │   ├── share // 由于server与web都使用TS开发，这里用了ln -s 命令实现服务端与客户端在src目录下共享代码，mac与linux可用，无法在window下使用
+│   │   │   ├── Api.ts // 这里定义了 server与web 共用的服务器ip，url，请求参数interface，返回数据interface，返回结果码
+│   │       └── Constant.ts // 这里定义 server与web 共用的一些常量
 │   ├── tsconfig.json
 │   ├── yarn-error.log
 │   └── yarn.lock
-├── share // 由于server与web都使用TS开发，这里用了ln -s 命令实现服务端与客户端在src目录下共享代码，mac与linux可用，无法在window下使用
-│   ├── Api.ts // 这里定义了 server与web 共用的服务器ip，url，请求参数interface，返回数据interface，返回结果码
-│   └── Constant.ts // 这里定义 server与web 共用的一些常量
 └── web //客户端代码 主要是使用阿里的ant，dva开发
     ├── dist
     ├── mock
     ├── node_modules
     ├── package.json
     ├── src
+    │   ├── share
     ├── tsconfig.json
     ├── typings.d.ts
     ├── yarn-error.log

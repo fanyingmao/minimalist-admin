@@ -70,8 +70,7 @@ class Admin extends Component<ActionProps, ActionState> {
     };
     this.module.forEach(itme=>itme.cheakReg());
     if(this.module.some(item=>item.isError)){
-      this.setState({
-      });
+      this.setState({});
     }
     else{
     // message.info('onSelect:' + JSON.stringify(this.module));
