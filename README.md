@@ -69,7 +69,7 @@ server/src/config/actionBase.ts
     Prefix: `${BasePrefix}  redis-cli <subCmd>`
   }
 ```
-基本配置模版是对功能配置模版中的命令套上一个外层命令，type为不重复的常量就可以了，BasePrefix是对命令再套入一个ssh 进行远程执行使用的， <subCmd> 代表功能命令，执行时会被替换
+基本配置模版是对功能配置模版中的命令套上一个外层命令，type为不重复的常量就可以了，BasePrefix是对命令再套入一个ssh 进行远程执行使用的， subCmd 代表功能命令，执行时会被替换
 
 如 ssh，mysql，redis,目前配置是这样的
 ```ts

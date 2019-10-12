@@ -1,0 +1,11 @@
+version: "3.5"
+services:
+  mini-admin-server:
+    image: server:1.0.0
+    build: ./server
+    volumes:
+      - ./server:/usr/src/app
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+        - 3000:3000
