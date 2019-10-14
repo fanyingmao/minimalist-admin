@@ -132,7 +132,7 @@ class Admin extends Component<ActionProps, ActionState> {
                 style={{ width: 300 }}
                 onSelect={this.onSelect}
                 onSearch={this.onSearch}
-                placeholder="input here" />
+                placeholder="输入查找关键词" />
               <Button type="primary" onClick={this.handleRunAction} className={styles.btn} loading={submitting}>执行</Button>
             </div>}
             footer={<div>
@@ -146,7 +146,7 @@ class Admin extends Component<ActionProps, ActionState> {
             renderItem={item => <List.Item >
               <Form layout="inline" className={styles.itemBox}>
                 <Form.Item label={item.lableName} hasFeedback validateStatus={item.isError ? 'error' : ''}>
-                  <Input placeholder="Basic usage" onChange={event => item.onChange(event)} defaultValue={item.value} />
+                  <Input placeholder={item.regMatch.source} onChange={event => item.onChange(event)} defaultValue={item.value} />
                 </Form.Item>
               </Form>
             </List.Item>}

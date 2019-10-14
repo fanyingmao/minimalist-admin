@@ -38,7 +38,7 @@ app.use(cors({
 app.use(bodyParser());
 // app.use(logger);
 app.use(requestLog());
-app.use(ipWhitelist());
+// app.use(ipWhitelist());//如果不想要白名单可去掉这里
 app.use(router.routes());
 app.use(router.allowedMethods());
 
