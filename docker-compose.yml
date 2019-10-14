@@ -9,3 +9,10 @@ services:
       - TZ=Asia/Shanghai
     ports:
         - 3000:3000
+  mini-admin-web:
+    image: nginx:1.14.1
+    restart: always
+    volumes:
+      - ./server/dist:/usr/share/nginx/html
+    ports:
+      - 8000:80
