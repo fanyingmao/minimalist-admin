@@ -2,7 +2,7 @@ export class Api {
   public static readonly ServerPort: number = 3000;
   public static readonly WebPort: number = 8000;//开发阶段web端口与server端口不一致
   public static getBaseUrl(isServer: boolean) {
-    return `http://192.168.140.32:${isServer ? Api.WebPort : Api.ServerPort}`;//这里改为自己运行环境的ip或域名
+    return `http://127.0.0.1:${isServer ? Api.WebPort : Api.ServerPort}`;//这里改为自己运行环境的ip或域名
   }
 }
 
