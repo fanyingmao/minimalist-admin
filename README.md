@@ -45,7 +45,7 @@ yarn start
 │   ├── src
 │   │   ├── share // 由于server与web都使用TS开发，这里用了ln -s 命令实现服务端与客户端在src目录下共享代码，mac与linux可用，无法在window下使用
 │   │   │   ├── Api.ts // 这里定义了 server与web 共用的服务器ip，url，请求参数interface，返回数据interface，返回结果码
-│   │       └── Constant.ts // 这里定义 server与web 共用的一些常量
+│   │       └── CpostRunAction constant.ts // 这里定义 server与web 共用的一些常量
 │   ├── tsconfig.json
 │   ├── yarn-error.log
 │   └── yarn.lock
@@ -70,7 +70,7 @@ yarn start
 server/src/config/ipWhitelist.json
 ```
 
-出于安全和不做账号认证的考虑，需要配置 ip 白名单对用户过滤。
+出于安全和不做账号认证的考虑，需要配置 ip 白名单对用户过滤。还有一般建议部署在内网中,通过ssh方式控制外网服务器.
 
 ### 基本模版模版配置
 
