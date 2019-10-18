@@ -3,11 +3,11 @@
  * 这里进行命令类型的拼接，如mysql redis 将xxxx 换为自己服务器的配置
  */
 
- const BasePrefix = ``;//这里填要远程执行的ssh如果是本机的话为空
+ const BasePrefix = `ssh root@by.fanym.top`;//这里填要远程执行的ssh如果是本机的话为空
 export const ActionType = {
   system: {
     type: 0,
-    Prefix: `${BasePrefix} <subCmd>`
+    Prefix: `${BasePrefix} "<subCmd>"`
     // Prefix: "<subCmd>"
   },
   mysql: {
