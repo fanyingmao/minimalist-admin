@@ -39,3 +39,11 @@ export async function postRunAction(context: Context) {
     }
   }
 }
+
+/**
+ * 获取所有操作配置
+ */
+export async function getLog(context: Context) {
+    let requestBody = context.request.query;
+    context.body = requestBody;
+}
