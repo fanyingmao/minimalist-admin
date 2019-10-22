@@ -27,7 +27,7 @@ export class Action implements IAction {
         if (!reg.test(param)) {
           throw { code: ResCode.Fail, msg: '参数不合法' }
         }
-        cmd = cmd.replace(ParmaReg, `${param}`);
+        cmd = cmd.replace(/\<(.*?)\>/, `${param}`);
       }
     }
 
