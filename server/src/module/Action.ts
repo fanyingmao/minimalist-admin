@@ -1,5 +1,5 @@
 import { ParmaReg, DefaultReg } from "../share/Constant";
-import { ActionTypeMap } from "../config/actionBase";
+import { ActionTypeMap, ActionType } from "../config/actionBase";
 import { IAction, ResCode } from "../share/Api";
 
 export class Action implements IAction {
@@ -30,8 +30,10 @@ export class Action implements IAction {
         cmd = cmd.replace(/\<(.*?)\>/, `${param}`);
       }
     }
-
     cmd = ActionTypeMap[this.type].Prefix.replace('<subCmd>', cmd);
+    if (this.type === ActionType.redis.type) {
+      cmd = cmd.replace('%type1% ',paramArr[0].substr(paramArr[0].length - 1, paramArr[0].length));
+    }
     return cmd;
   }
 }
