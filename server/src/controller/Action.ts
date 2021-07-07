@@ -26,16 +26,24 @@ export async function postRunAction(context: Context) {
     getLogger().info(`postRunAction cmd: ${cmd}`);
     let body: IResPostRunAction = { code: ResCode.Success };
     try {
-      body.data = await asyncExec(cmd);
+      body.data = ' susess\n' + await asyncExec(cmd);
     }
     catch (e) {
-      body.data = e.stack;
+      body.data = ' fail\n' + e.stack;
     }
     context.body = body;
   }
   catch (e) {
     if (e.code === ResCode.Fail) {
-      context.body = e;
+      context.body = ' fail\n' + e;
     }
   }
+}
+
+/**
+ * 获取所有操作配置
+ */
+export async function getLog(context: Context) {
+    let requestBody = context.request.query;
+    context.body = requestBody;
 }

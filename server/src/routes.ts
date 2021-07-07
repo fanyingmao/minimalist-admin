@@ -1,4 +1,4 @@
-import { getAllAction, postRunAction } from "./controller/Action";
+import { getAllAction, postRunAction, getLog } from "./controller/Action";
 import { Middleware, ParameterizedContext } from "koa";
 import { RouteGetAllAction, RoutePostRunAction } from "./share/Api";
 
@@ -26,4 +26,5 @@ function getRoute(path: string, method: METHODS, action: Middleware<Parameterize
 export const AppRoutes:IRoute[] = [
   getRoute(RouteGetAllAction, METHODS.GET, getAllAction),
   getRoute(RoutePostRunAction, METHODS.POST, postRunAction),
+  getRoute(RouteGetAllAction, METHODS.GET, getLog),
 ];
